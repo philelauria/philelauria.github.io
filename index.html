@@ -28,7 +28,7 @@
     </header>
 
     <div class="container">
-    <p>A little something for the A.D.D. kid in all of us. This comes from <a href="" target="_blank">Mike Bostock's</a> awesome collection of <a href="http://d3js.org/" target="_blank">D3.js</a> work.</p>
+    <p>A little something for the A.D.D. kid in all of us. This comes from <a href="http://bost.ocks.org" target="_blank">Mike Bostock's</a> awesome collection of <a href="http://d3js.org/" target="_blank">D3.js</a> work.</p>
     <script src="javascripts/collisionDetection.js"></script>
     </div>
 
@@ -41,7 +41,7 @@
 
 <p>This blog will be different from anything you've seen before in that I have never written <i>any</i> of those other blog posts out there. Yeah, I keep it real.<br><br>
 
-In addtion to keeing it real, I'll be exploring all things JavaScript and anything else code-related that captures my highly developed, internets-trained attention span. 
+In addtion to keeping it real, I'll be exploring all things JavaScript and anything else code-related that captures my highly developed, internets-trained attention span. 
 </p>
 <br>
 <h3>
@@ -56,47 +56,54 @@ The final object in any prototype chain has null as its prototype. null, being a
 If the search for the property reaches a null value, we get a value of undefined returned to us. This process of directing a property search to move up the prototype chain upon failing to find a property is called delegation, where each object delegates to its prototype.<br><br>
  
 Let's take a look at this in code. The method we'll use to create new objects and establish the prototypal relationship(s) below is Object.create. The first argument passed into Object.create's parameters will be the prototype for the newly-created object. A second argument can be passed into this method to add properties onto the newly-created object upon creation, but we won't concern ourselves with that here.<br><br>
- 
+
+<code>
 var car;
+<br>
 var mustang;
  <br><br>
-var vehicle = {  
-    moves: true,  
-    hasSeats: true
+var vehicle = {  <br>
+    moves: true,  <br>
+    hasSeats: true<br>
 }
  <br><br>
-//The object that the variable car points to is created
-//and vehicle is set as its prototype
-car = Object.create(vehicle);car.wheels = 4;car.doors = 2;
+//The object that the variable car points to is created<br>
+//and vehicle is set as its prototype<br>
+car = Object.create(vehicle);<br>
+car.wheels = 4;<br>
+car.doors = 2;
  <br><br>
-//The object that the variable mustang points to is created
-//and car is set as its prototype
-mustang = Object.create(car)mustang.color = "blue";
-mustang.cylinders = 8;
+//The object that the variable mustang points to is created<br>
+//and car is set as its prototype<br>
+mustang = Object.create(car)<br>
+mustang.color = "blue";<br>
+mustang.cylinders = 8;<br>
  <br><br>
 //Let's see what shows up on some searches
  <br><br>
-mustang.color // "blue"
-mustang.wheels // 4
-mustang.hasSeats // true
+mustang.color // "blue"<br>
+mustang.wheels // 4<br>
+mustang.hasSeats // true<br>
 mustang.hasSunRoof //undefined
+</code>
  <br><br>
 The ability for a lower level object to access properties higher up the prototype chain is called prototypal inheritance, and is one of the defining features of the JavaScript language in general. It's important to keep in mind that the variable names we assign to objects are just that - names. They aren't the objects themselves. If after the code above we re-assigned the variable name mustang to a different object that delegated to a different prototype, the object mustang used to point to, the one with a "color" value of "blue" and a prototype object assigned to car, would remain unchanged. The name mustang would simply point to a new object. To get a better visual on how the object mustang originally pointed to doesn't change, I'll assigned a new variable name to that object before re-assigning mustang to a different one. Here's some code to look at:<br><br>
- 
-//assigns new variable name, not to mustang, but to the object that mustang is currently pointing to
+<code>
+//assigns new variable name, not to mustang, but to the object that mustang is currently pointing to<br>
 var camaro = mustang;<br><br>
  
-mustang; // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: true,  hasSeats: true}
+mustang; // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: true,  hasSeats: true}<br>
 camaro;   // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: true,  hasSeats: true}
  <br><br>
-var horse = {
-    legs: 4,
-    hasTail: true
+var horse = {<br>
+    legs: 4,<br>
+    hasTail: true<br>
 }
  <br><br>
-mustang = Object.create(horse);
-mustang;  // Object {legs: 4, hasTail: true}
+mustang = Object.create(horse);<br>
+mustang;  // Object {legs: 4, hasTail: true}<br>
 camaro;    // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: true,  hasSeats: true}
+</code>
  <br><br>
 Looking at the objects mustang and camaro are most recently pointing to, it's easy at first glance to think that all of the properties shown are immediately contained in them. But now we know that mustang for instance, had to delegate to its prototype horse before we could see the "legs" and "hasTail" values. Object.create is creating and returning a brand new object when it's called. Part of that creation process is establishing the prototype of the newly-created object and as a result, you cannot change what the new object delegates to later*.
  <br><br>
@@ -105,30 +112,30 @@ Looking at the objects mustang and camaro are most recently pointing to, it's ea
 <h3>
 <a id="JavaScript-Quizzes" class="anchor" href="#JavaScript-Quizzes" aria-hidden="true"><span class="octicon octicon-link"></span></a>JavaScript Quizzes</h3>
 
-<p>Throughout my experience in learning how to code, I've found that self-testing is has been both enjoyable and generally beneficial. So to help you out on your coding journey, I've found some interesting JavaScript tests for you to go through. Keeping in mind that nothing is more conducive to learning how to code than actually coding (this should seem obvious), to get the most out of these tests I suggest grabbing pieces of code you're not clear on and playing with them in a sandbox like
+<p>Throughout my experience in learning how to code, I've found that self-testing is has been both enjoyable and generally beneficial. So to help you out on your coding journey, I've found some interesting JavaScript tests for you to go through. Keeping in mind that nothing is more conducive to learning how to code than actually coding (this should seem obvious), to get the most out of these tests I suggest grabbing pieces of code you're not clear on and playing with them in a sandbox like:
  <br><br>
 <a href="http://eloquentjavascript.net/1st_edition/paper.html" target="_blank">http://eloquentjavascript.net/1st_edition/paper.html</a>
+<br>or<br>
 <a href="http://jsfiddle.net/" target="_blank">http://jsfiddle.net/</a>
 <br><br>
  
-Or in your browser's dev console:
-Google Chrome:
-Windows/Linux keyboard shortcut: Ctrl + Shift + J
+Or in your browser's dev console:<br>
+Google Chrome: Windows/Linux keyboard shortcut: Ctrl + Shift + J<br>
 Mac: Cmd + Opt + J
  <br><br>
-Mozilla Firefox:
-Windows/ Linux: Ctrl + Shift + K
+Mozilla Firefox:<br>
+Windows/ Linux: Ctrl + Shift + K<br>
 Mac: Cmd + Opt + K
   <br><br>
 And here are the tests. JavaScript Koans goes through some great fundamentals for JS, while the latter two really test for rarer edge-casey-type issues.
   <br><br>
-JavaScript Koans:
+JavaScript Koans:<br>
 <a href="https://github.com/mrdavidlaing/javascript-koans" target="_blank">https://github.com/mrdavidlaing/javascript-koans</a>>
   <br><br>
-Dmitry Baranovsky's quiz
+Dmitry Baranovsky's quiz:<br>
 <a href="http://dmitry.baranovskiy.com/post/91403200" target="_blank">http://dmitry.baranovskiy.com/post/91403200</a>
   <br><br>
-Perfection Kills
+Perfection Kills:<br>
 <a href="http://perfectionkills.com/javascript-quiz/" target="_blank">http://perfectionkills.com/javascript-quiz/</a>
  <br><br>
 Happy learning!</p>
