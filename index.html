@@ -42,99 +42,93 @@
 
 <p>This blog will be different from anything you've seen before in that I have never written <i>any</i> of those other blog posts out there. Yeah, I keep it real.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
 <h3>
 <a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prototype Chains and Object Delegation in JavaScript</h3>
 
-<p>When searching for a property in an object, JavaScript goes through a process where it searches for the property in question, naturally, in the object itself. But what happens if the object doesn't possess the property we're looking for?
+<p>When searching for a property in an object, JavaScript goes through a process where it searches for the property in question, naturally, in the object itself. But what happens if the object doesn't possess the property we're looking for?<br><br>
  
-Every object in JavaScript has an internal link to another object known as its prototype. Each object has exactly one prototype. If the search fails to find the property in an object, the search will move up to that object's prototype and check there. This process continues on up through each prototype's prototype until either the property is found or the search has gone through the entire series of linked prototypes. This series of linked prototype objects is known as the prototype chain. If the property is found somewhere along the prototype chain, we get our property returned to us, almost as if the original object we searched possessed the property all along.
+Every object in JavaScript has an internal link to another object known as its prototype. Each object has exactly one prototype. If the search fails to find the property in an object, the search will move up to that object's prototype and check there. This process continues on up through each prototype's prototype until either the property is found or the search has gone through the entire series of linked prototypes. This series of linked prototype objects is known as the prototype chain. If the property is found somewhere along the prototype chain, we get our property returned to us, almost as if the original object we searched possessed the property all along.<br><br>
  
-The final object in any prototype chain has null as its prototype. null, being a primitive value, is one of the few types in JavaScript that is not an object and by definition, cannot have a prototype. The final object that has null as its prototype is by default known as "THE object prototype", (emphasis on "THE" so as not to be confused with the more generic objects and prototypes I was referring to in the beginning of this blog post.  
+The final object in any prototype chain has null as its prototype. null, being a primitive value, is one of the few types in JavaScript that is not an object and by definition, cannot have a prototype. The final object that has null as its prototype is by default known as "THE object prototype", (emphasis on "THE" so as not to be confused with the more generic objects and prototypes I was referring to in the beginning of this blog post.  <br><br>
  
-If the search for the property reaches a null value, we get a value of undefined returned to us. This process of directing a property search to move up the prototype chain upon failing to find a property is called delegation, where each object delegates to its prototype.
+If the search for the property reaches a null value, we get a value of undefined returned to us. This process of directing a property search to move up the prototype chain upon failing to find a property is called delegation, where each object delegates to its prototype.<br><br>
  
-Let's take a look at this in code. The method we'll use to create new objects and establish the prototypal relationship(s) below is Object.create. The first argument passed into Object.create's parameters will be the prototype for the newly-created object. A second argument can be passed into this method to add properties onto the newly-created object upon creation, but we won't concern ourselves with that here.
+Let's take a look at this in code. The method we'll use to create new objects and establish the prototypal relationship(s) below is Object.create. The first argument passed into Object.create's parameters will be the prototype for the newly-created object. A second argument can be passed into this method to add properties onto the newly-created object upon creation, but we won't concern ourselves with that here.<br><br>
  
 var car;
 var mustang;
- 
+ <br><br>
 var vehicle = {  
     moves: true,  
     hasSeats: true
 }
- 
+ <br><br>
 //The object that the variable car points to is created
 //and vehicle is set as its prototype
 car = Object.create(vehicle);car.wheels = 4;car.doors = 2;
- 
+ <br><br>
 //The object that the variable mustang points to is created
 //and car is set as its prototype
 mustang = Object.create(car)mustang.color = "blue";
 mustang.cylinders = 8;
- 
+ <br><br>
 //Let's see what shows up on some searches
- 
+ <br><br>
 mustang.color // "blue"
 mustang.wheels // 4
 mustang.hasSeats // true
 mustang.hasSunRoof //undefined
- 
-The ability for a lower level object to access properties higher up the prototype chain is called prototypal inheritance, and is one of the defining features of the JavaScript language in general. It's important to keep in mind that the variable names we assign to objects are just that - names. They aren't the objects themselves. If after the code above we re-assigned the variable name mustang to a different object that delegated to a different prototype, the object mustang used to point to, the one with a "color" value of "blue" and a prototype object assigned to car, would remain unchanged. The name mustang would simply point to a new object. To get a better visual on how the object mustang originally pointed to doesn't change, I'll assigned a new variable name to that object before re-assigning mustang to a different one. Here's some code to look at:
+ <br><br>
+The ability for a lower level object to access properties higher up the prototype chain is called prototypal inheritance, and is one of the defining features of the JavaScript language in general. It's important to keep in mind that the variable names we assign to objects are just that - names. They aren't the objects themselves. If after the code above we re-assigned the variable name mustang to a different object that delegated to a different prototype, the object mustang used to point to, the one with a "color" value of "blue" and a prototype object assigned to car, would remain unchanged. The name mustang would simply point to a new object. To get a better visual on how the object mustang originally pointed to doesn't change, I'll assigned a new variable name to that object before re-assigning mustang to a different one. Here's some code to look at:<br><br>
  
 //assigns new variable name, not to mustang, but to the object that mustang is currently pointing to
-var camaro = mustang;
+var camaro = mustang;<br><br>
  
 mustang; // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: true,  hasSeats: true}
 camaro;   // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: true,  hasSeats: true}
- 
+ <br><br>
 var horse = {
     legs: 4,
     hasTail: true
 }
- 
+ <br><br>
 mustang = Object.create(horse);
 mustang;  // Object {legs: 4, hasTail: true}
 camaro;    // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: true,  hasSeats: true}
- 
+ <br><br>
 Looking at the objects mustang and camaro are most recently pointing to, it's easy at first glance to think that all of the properties shown are immediately contained in them. But now we know that mustang for instance, had to delegate to its prototype horse before we could see the "legs" and "hasTail" values. Object.create is creating and returning a brand new object when it's called. Part of that creation process is establishing the prototype of the newly-created object and as a result, you cannot change what the new object delegates to later*.
- 
+ <br><br>
 *The constructor.prototype and ._proto_ features provide ways for the prototype of an object to be mutated after the creation of an object. However, for ECMAScript 5 these are  non-standard features and the use of them in code is typically discouraged. ._proto_ is included the Ecma-262 Edition 6, but for now ECMAScript 5 standards should probably not be ignored.</p>
-
+<br><br>
 <h3>
 <a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
+<br><br>
 <p>Throughout my experience in learning how to code, I've found that self-testing is has been both enjoyable and generally beneficial. So to help you out on your coding journey, I've found some interesting JavaScript tests for you to go through. Keeping in mind that nothing is more conducive to learning how to code than actually coding (this should seem obvious), to get the most out of these tests I suggest grabbing pieces of code you're not clear on and playing with them in a sandbox like
- 
-http://eloquentjavascript.net/1st_edition/paper.html
-http://jsfiddle.net/
+ <br><br>
+<a href="http://eloquentjavascript.net/1st_edition/paper.html">http://eloquentjavascript.net/1st_edition/paper.html</a>
+<a href="http://jsfiddle.net/">http://jsfiddle.net/</a>
+<br><br>
  
 Or in your browser's dev console:
 Google Chrome:
 Windows/Linux keyboard shortcut: Ctrl + Shift + J
 Mac: Cmd + Opt + J
- 
+ <br><br>
 Mozilla Firefox:
 Windows/ Linux: Ctrl + Shift + K
 Mac: Cmd + Opt + K
- 
+  <br><br>
 And here are the tests. JavaScript Koans goes through some great fundamentals for JS, while the latter two really test for rarer edge-casey-type issues.
- 
+  <br><br>
 JavaScript Koans:
 <a href="https://github.com/mrdavidlaing/javascript-koans">https://github.com/mrdavidlaing/javascript-koans</a>>
- 
+  <br><br>
 Dmitry Baranovsky's quiz
 <a href="http://dmitry.baranovskiy.com/post/91403200">http://dmitry.baranovskiy.com/post/91403200</a>
- 
+  <br><br>
 Perfection Kills
 <a href="http://perfectionkills.com/javascript-quiz/">http://perfectionkills.com/javascript-quiz/</a>
-
+ <br><br>
 Happy learning!</p>
 
 
