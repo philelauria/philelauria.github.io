@@ -43,7 +43,7 @@
 
 In addtion to keeing it real, I'll be exploring all things JavaScript and anything else code-related that captures my highly developed, internets-trained attention span. 
 </p>
-
+<br>
 <h3>
 <a id="rototype-chains" class="anchor" href="#prototype-chains" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prototype Chains and Object Delegation in JavaScript</h3>
 
@@ -101,7 +101,7 @@ camaro;    // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: t
 Looking at the objects mustang and camaro are most recently pointing to, it's easy at first glance to think that all of the properties shown are immediately contained in them. But now we know that mustang for instance, had to delegate to its prototype horse before we could see the "legs" and "hasTail" values. Object.create is creating and returning a brand new object when it's called. Part of that creation process is establishing the prototype of the newly-created object and as a result, you cannot change what the new object delegates to later*.
  <br><br>
 *The constructor.prototype and ._proto_ features provide ways for the prototype of an object to be mutated after the creation of an object. However, for ECMAScript 5 these are  non-standard features and the use of them in code is typically discouraged. ._proto_ is included the Ecma-262 Edition 6, but for now ECMAScript 5 standards should probably not be ignored.</p>
-<br><br>
+<br>
 <h3>
 <a id="JavaScript-Quizzes" class="anchor" href="#JavaScript-Quizzes" aria-hidden="true"><span class="octicon octicon-link"></span></a>JavaScript Quizzes</h3>
 
