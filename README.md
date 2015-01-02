@@ -1,4 +1,4 @@
 philelauria.github.io
 =====================
 
-Blogtastic
+Blogging about stuff I blog about. 
