@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog - PhilElauria.Codes</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/business-casual.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="brand">PhilElauria.Codes</div>
+    <div class="address-bar">BeardsAndFlannels, CA 94103</div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+                <a class="navbar-brand" href="index.html">PhilElauria.Codes</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../blog.html">Blog</a>
+                    </li>
+<!--                     <li>
+                        <a href="contact.html">Contact</a>
+                    </li> -->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">T3h
+                        <strong>blog</strong>
+                    </h2>
+                    <hr>
+                </div>
+                <div class="col-lg-12 text-left">
+                    <img class="img-responsive img-border img-full" src="img/slide-2.jpg" alt="">
+                    <h2>Prototype Chains and Object Delegation in JavaScript
+                        <br>
+                        <small>November 13th, 2014</small>
+                    </h2>
+                    <p>When searching for a property in an object, JavaScript goes through a process where it searches for the property in question, naturally, in the object itself. But what happens if the object doesn't possess the property we're looking for? Here's what's going on under the hood.<br><br>
+ 
+                    Every object in JavaScript has an internal link to another object known as its prototype. Each object has exactly one prototype. If the search fails to find the property in an object, the search will move up to that object's prototype and check there. This process continues on up through each prototype's prototype until either the property is found or the search has gone through the entire series of linked prototypes. This series of linked prototype objects is known as the prototype chain. If the property is found somewhere along the prototype chain, we get our property returned to us, almost as if the original object we searched possessed the property all along.<br><br>
+                     
+                    The final object in any prototype chain has null as its prototype. null, being a primitive value, is one of the few types in JavaScript that is not an object and by definition, cannot have a prototype. The final object that has null as its prototype is by default known as "THE object prototype", (emphasis on "THE" so as not to be confused with the more generic objects and prototypes I was referring to in the beginning of this blog post.  <br><br>
+                     
+                    If the search for the property reaches a null value, we get a value of undefined returned to us. This process of directing a property search to move up the prototype chain upon failing to find a property is called delegation, where each object delegates to its prototype.<br><br>
+                     
+                    Let's take a look at this in code. The method we'll use to create new objects and establish the prototypal relationship(s) below is Object.create. The first argument passed into Object.create's parameters will be the prototype for the newly-created object. A second argument can be passed into this method to add properties onto the newly-created object upon creation, but we won't concern ourselves with that here.<br><br>
+
+                    <code>
+                    var car;
+                    <br>
+                    var mustang;
+                     <br><br>
+                    var vehicle = {  <br>
+                        moves: true,  <br>
+                        hasSeats: true<br>
+                    }
+                     <br><br>
+                    //The object that the variable car points to is created<br>
+                    //and vehicle is set as its prototype<br>
+                    car = Object.create(vehicle);<br>
+                    car.wheels = 4;<br>
+                    car.doors = 2;
+                     <br><br>
+                    //The object that the variable mustang points to is created<br>
+                    //and car is set as its prototype<br>
+                    mustang = Object.create(car)<br>
+                    mustang.color = "blue";<br>
+                    mustang.cylinders = 8;<br>
+                     <br><br>
+                    //Let's see what shows up on some searches
+                     <br><br>
+                    mustang.color // "blue"<br>
+                    mustang.wheels // 4<br>
+                    mustang.hasSeats // true<br>
+                    mustang.hasSunRoof //undefined
+                    </code>
+                     <br><br>
+                    The ability for a lower level object to access properties higher up the prototype chain is called prototypal inheritance, and is one of the defining features of the JavaScript language in general. It's important to keep in mind that the variable names we assign to objects are just that - names. They aren't the objects themselves. If after the code above we re-assigned the variable name mustang to a different object that delegated to a different prototype, the object mustang used to point to, the one with a "color" value of "blue" and a prototype object assigned to car, would remain unchanged. The name mustang would simply point to a new object. To get a better visual on how the object mustang originally pointed to doesn't change, I'll assigned a new variable name to that object before re-assigning mustang to a different one. Here's some code to look at:<br><br>
+                    <code>
+                    //assigns new variable name, not to mustang, but to the object that mustang is currently pointing to<br>
+                    var camaro = mustang;<br><br>
+                     
+                    mustang; // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: true,  hasSeats: true}<br>
+                    camaro;   // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: true,  hasSeats: true}
+                     <br><br>
+                    var horse = {<br>
+                        legs: 4,<br>
+                        hasTail: true<br>
+                    }
+                     <br><br>
+                    mustang = Object.create(horse);<br>
+                    mustang;  // Object {legs: 4, hasTail: true}<br>
+                    camaro;    // Object {color: "blue", cylinders: 8, wheels: 4, doors: 2, moves: true,  hasSeats: true}
+                    </code>
+                     <br><br>
+                    Looking at the objects mustang and camaro are most recently pointing to, it's easy at first glance to think that all of the properties shown are immediately contained in them. But now we know that mustang for instance, had to delegate to its prototype horse before we could see the "legs" and "hasTail" values. Object.create is creating and returning a brand new object when it's called. Part of that creation process is establishing the prototype of the newly-created object and as a result, you cannot change what the new object delegates to later*.
+                     <br><br>
+                    *The constructor.prototype and ._proto_ features provide ways for the prototype of an object to be mutated after the creation of an object. However, for ECMAScript 5 these are  non-standard features and the use of them in code is typically discouraged. ._proto_ is included the Ecma-262 Edition 6, but for now ECMAScript 5 standards should probably not be ignored.</p>
+                    <a href="../blog.html" class="btn btn-default btn-lg">Back to Blog Summaries</a>
+                    <hr>
+                </div>
+                <div class="col-lg-12 text-center">
+                    <ul class="pager">
+                        <li class="previous"><a href="#">&larr; Older</a>
+                        </li>
+                        <li class="next"><a href="#">Newer &rarr;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Sup, Volant!</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

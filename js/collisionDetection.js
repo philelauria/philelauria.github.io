@@ -1,9 +1,9 @@
-var width = 1200,
-    height = 500;
+var width = 1435,
+    height = 380;
 
 var nodes = d3.range(200).map(function() { return {radius: Math.random() * 12 + 4}; }),
     root = nodes[0],
-    color = d3.scale.category20b();
+    color = d3.scale.category10();
 
 root.radius = 0;
 root.fixed = true;
@@ -24,7 +24,7 @@ svg.selectAll("circle")
     .data(nodes.slice(1))
   .enter().append("circle")
     .attr("r", function(d) { return d.radius; })
-    .style("fill", function(d, i) { return color(i % 7); });
+    .style("fill", function(d, i) { return color(i % 4); });
 
 force.on("tick", function(e) {
   var q = d3.geom.quadtree(nodes),
