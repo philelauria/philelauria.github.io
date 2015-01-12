@@ -24,7 +24,12 @@ h6 {
     font-weight: 700;
     letter-spacing: 1px;
 }
-
+/*
+.aboutpic {
+    position: absolute;
+    margin-left: 600px;
+}
+*/
 svg {
     margin-top: -1150px;
     position: absolute;
