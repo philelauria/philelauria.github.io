@@ -93,28 +93,25 @@
                 </div>
                 <div class="col-lg-12 text-left">
                     <!-- <img class="img-responsive img-border img-full" src="img/slide-2.jpg" alt=""> --> 
-                    <h3>Truthy or Falsy? Boolean Values in JavaScript using == and ===
+                    <h3>== vs === in JavaScript
                         <br>
                         <small>January 1st, 2015</small>
                     </h3>
                         <p>
-                        Happy Thursday, everyone. So I have these two informative images I'd like to share. They give a quick reference to whether something will show up as "truthy" or "falsy" when you compare two values using either the double equals or triple equals comparison operator. Although most consider it a best practice in JS to just use the triple equals, it's still interesting to know aobut the differences. 
-                        </p>
-                        <p>The difference in number of potentially truthy values you get from a double equals compared to a triple equals should make it clear why it's a best practice to just use the triple equals. 
+                        I thought it might be useful to make a post as a quick reference between the  == (abstract comparison) and === (strict comparison) operators. It's typically taught that the best practice is to default to ===. The essential difference is that == does a type conversion to each of the values prior to making the comparison. As a result, using == opens up the comparison to resulting in a true value in many more scenarios.  
                         </p>
                         <p>
-                        (== operator)<br>
+                        (== i.e. abstract comparison)<br>
                         <img class="truthy" src="../img/blogImgs/DoubleEquals.jpg" alt="">
                         </p>
                         <p>
-                        Having far looser criteria for what can turn out to be truthy, it's simply easier to make a mistake with the double equals and that drastically increases the chances of larger code bases returning unexpected values. Now check out the triple equals chart.
                         </p>
                         <p>
-                        (=== operator)<br>
+                        (=== i.e. strict comparison)<br>
                         <img class="truthy" src="../img/blogImgs/TripleEquals.jpg" alt="">
                         </p>
                         <p>
-                        It's kind of difficult to confuse what will turn out to be truthy here. The less <a href="http://en.wikipedia.org/wiki/Working_memory" target="_blank">working memory</a> you have to exert to think about something, the better the chances you have to think clearly about it.
+                        For a more detailed account of all this, check out <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators" target="_blank">MDN.</a>
                         </p>
                     <a href="../blog.html" class="btn btn-default btn-lg">Back to Blog Summaries</a>
                     <hr>
