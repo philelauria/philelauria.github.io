@@ -110,7 +110,8 @@ hr {
 }
 
 .collider {
-    margin-bottom: -20px;
+    margin-bottom: 100px;
+    margin-top: -300px;
 }
 
 .intro-text {
