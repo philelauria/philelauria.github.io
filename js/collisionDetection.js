@@ -9,7 +9,7 @@ root.radius = 0;
 root.fixed = true;
 
 var force = d3.layout.force()
-    .gravity(0.05)
+    .gravity(0.075)
     .charge(function(d, i) { return i ? 0 : -2000; })
     .nodes(nodes)
     .size([width, height]);
